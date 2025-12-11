@@ -1,10 +1,9 @@
-name: Build and Deploy Docs
+name: Build and Deploy Docs (PAT)
 
 on:
   push:
     branches: [ "main" ]
 
-# Important: give the workflow the ability to publish Pages
 permissions:
   contents: read
   pages: write
@@ -19,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          persist-credentials: true   # <-- must be true so the runner can push
+          persist-credentials: true
 
       - name: Install doxygen & graphviz
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
@@ -27,7 +26,8 @@ jobs:
       - name: Generate docs
         run: doxygen Doxyfile
 
-      - name: Deploy to GitHub Pages (peaceiris)
+      - name: Deploy to GitHub Pages (using PAT)
         uses: peaceiris/actions-gh-pages@v3
         with:
+          token: ${{ secrets.GH_PAGES_PAT }}
           publish_dir: ./docs/html
