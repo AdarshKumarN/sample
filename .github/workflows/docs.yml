@@ -1,4 +1,4 @@
-name: Build and Deploy Docs (PAT)
+name: Build and Deploy Docs
 
 on:
   push:
@@ -26,8 +26,8 @@ jobs:
       - name: Generate docs
         run: doxygen Doxyfile
 
-      - name: Deploy to GitHub Pages (using PAT)
+      - name: Deploy to GitHub Pages (peaceiris)
         uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.GH_PAGES_PAT }}
+          github_token: ${{ secrets.GH_PAGES_PAT }}
           publish_dir: ./docs/html
