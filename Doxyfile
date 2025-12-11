@@ -1,0 +1,13 @@
+PROJECT_NAME           = "cpp-doc-demo"
+OUTPUT_DIRECTORY       = docs
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+INPUT                  = src
+RECURSIVE              = YES
+EXTRACT_ALL            = YES
+FILE_PATTERNS          = *.cpp *.c *.h *.hpp
+HTML_OUTPUT            = html
+QUIET                  = NO
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+DOT_IMAGE_FORMAT       = png
