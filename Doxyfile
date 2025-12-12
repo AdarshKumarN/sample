@@ -11,3 +11,4 @@ QUIET                  = NO
 HAVE_DOT               = YES
 CALL_GRAPH             = YES
 DOT_IMAGE_FORMAT       = png
+LAYOUT_FILE            = DoxygenLayout.xml
