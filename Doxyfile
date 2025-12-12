@@ -1,4 +1,4 @@
-PROJECT_NAME           = "cpp-doc-demo"
+PROJECT_NAME           = "Testing"
 OUTPUT_DIRECTORY       = docs
 GENERATE_HTML          = YES
 GENERATE_LATEX         = NO

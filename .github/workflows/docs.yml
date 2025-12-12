@@ -32,12 +32,12 @@ jobs:
       - name: Configure CMake
         run: cmake -B build -S .
 
-      - name: Generate Coverage Report # <--- ADDED
+      - name: Generate Coverage Report
         run: cmake --build build --target coverage
 
       # 4. Move the coverage report INSIDE the docs folder
       #    This ensures the deploy step below uploads both Doxygen AND Coverage.
-      - name: Merge Coverage into Docs Folder # <--- ADDED
+      - name: Merge Coverage into Docs Folder
         run: |
           mkdir -p ./docs/html/coverage
           cp -r build/coverage_report/* ./docs/html/coverage/
