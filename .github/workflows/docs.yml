@@ -20,12 +20,29 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
 
-      - name: Install doxygen & graphviz
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+      # 1. Update install command to include 'lcov' and 'cmake'
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz lcov cmake
 
+      # 2. Keep your existing Doxygen generation
       - name: Generate docs
         run: doxygen Doxyfile
 
+      # 3. Build the project and run the coverage target defined in CMake
+      - name: Configure CMake
+        run: cmake -B build -S .
+
+      - name: Generate Coverage Report # <--- ADDED
+        run: cmake --build build --target coverage
+
+      # 4. Move the coverage report INSIDE the docs folder
+      #    This ensures the deploy step below uploads both Doxygen AND Coverage.
+      - name: Merge Coverage into Docs Folder # <--- ADDED
+        run: |
+          mkdir -p ./docs/html/coverage
+          cp -r build/coverage_report/* ./docs/html/coverage/
+
+      # 5. Keep your existing deploy step exactly as is
       - name: Deploy to GitHub Pages (peaceiris)
         uses: peaceiris/actions-gh-pages@v3
         with:

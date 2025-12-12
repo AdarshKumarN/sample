@@ -1,0 +1,5 @@
+/home/adarsh/sample/CMakeFiles/math_utils.dir
+/home/adarsh/sample/CMakeFiles/runTests.dir
+/home/adarsh/sample/CMakeFiles/coverage.dir
+/home/adarsh/sample/CMakeFiles/edit_cache.dir
+/home/adarsh/sample/CMakeFiles/rebuild_cache.dir
