@@ -31,6 +31,10 @@ TEST(MathUtilsTest, MultiplyMixedNumbers) {
     EXPECT_EQ(multiply(-2, 3), -6);
 }
 
+TEST(MathUtilsTest, MultiplyMixedNumbersoo){
+    EXPECT_EQ(multiply(-10, 4), -40);
+}
+
 // Optional: check add and multiply together
 TEST(MathUtilsTest, CombinedOperations) {
     int a = 3, b = 4;
