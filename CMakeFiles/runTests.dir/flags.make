@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/adarsh/sample/src
+CXX_INCLUDES = -I/home/adarsh/sample/src -isystem /home/adarsh/sample/_deps/googletest-src/googletest/include -isystem /home/adarsh/sample/_deps/googletest-src/googletest
 
-CXX_FLAGS = -g -std=gnu++14 --coverage -O0 -g
+CXX_FLAGS = -std=c++14 -O0 -g --coverage
 

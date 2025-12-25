@@ -67,12 +67,13 @@ include CMakeFiles/coverage.dir/compiler_depend.make
 include CMakeFiles/coverage.dir/progress.make
 
 CMakeFiles/coverage: runTests
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/adarsh/sample/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating code coverage report..."
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/adarsh/sample/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating code coverage report"
+	/usr/bin/lcov --directory . --zerocounters
 	./runTests
-	/usr/bin/lcov --capture --directory CMakeFiles/runTests.dir --output-file coverage.info --ignore-errors mismatched
-	/usr/bin/lcov --remove coverage.info '/usr/*' --output-file coverage.info
-	/usr/bin/genhtml coverage.info --output-directory coverage_report
-	/usr/bin/cmake -E echo Coverage\ report:\ /home/adarsh/sample/coverage_report/index.html
+	/usr/bin/lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch
+	/usr/bin/lcov --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
+	/usr/bin/genhtml coverage.info --output-directory coverage_report --ignore-errors mismatch
+	/usr/bin/cmake -E echo Coverage\ report\ generated\ at:\ /home/adarsh/sample/coverage_report/index.html
 
 coverage: CMakeFiles/coverage
 coverage: CMakeFiles/coverage.dir/build.make

@@ -93,6 +93,8 @@ runTests_EXTERNAL_OBJECTS =
 runTests: CMakeFiles/runTests.dir/test/testing.cpp.o
 runTests: CMakeFiles/runTests.dir/build.make
 runTests: libmath_utils.a
+runTests: lib/libgtest_main.a
+runTests: lib/libgtest.a
 runTests: CMakeFiles/runTests.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/adarsh/sample/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable runTests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/runTests.dir/link.txt --verbose=$(VERBOSE)

@@ -1,16 +1,16 @@
-cmake_minimum_required(VERSION 3.14) # Bumped version slightly for FetchContent
-project(MathUtilsTest LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.16) 
+project(MathUtilsTest VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include_directories(${CMAKE_SOURCE_DIR}/src)
 
 # --------------------------------------------------------
-# [NEW] Automatically fetch Google Test (Fixes CI Error)
+# Automatically fetch Google Test
 # --------------------------------------------------------
 include(FetchContent)
+
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
@@ -23,35 +23,61 @@ FetchContent_MakeAvailable(googletest)
 # Source library
 # -------------------
 add_library(math_utils STATIC src/math_utils.cpp)
-target_compile_options(math_utils PRIVATE --coverage -O0 -g)
-target_link_libraries(math_utils PRIVATE --coverage)
 
-# -------------------
-# Test executable
-# -------------------
-add_executable(runTests test/testing.cpp)
+target_include_directories(math_utils
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
 
-# [UPDATED] Link against the fetched gtest_main (which includes gtest)
-target_link_libraries(runTests PRIVATE math_utils gtest_main pthread)
 
-target_compile_options(runTests PRIVATE --coverage -O0 -g)
-target_link_libraries(runTests PRIVATE --coverage)
+if(ENABLE_TESTS)
+    find_package(Threads REQUIRED)
 
-# -------------------
-# Coverage target
-# -------------------
-find_program(LCOV_PATH lcov)
-find_program(GENHTML_PATH genhtml)
-
-if(LCOV_PATH AND GENHTML_PATH)
-    add_custom_target(coverage
-        COMMAND ${LCOV_PATH} --directory . --zerocounters
-        COMMAND ./runTests
-        COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch
-        COMMAND ${LCOV_PATH} --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
-        COMMAND ${GENHTML_PATH} coverage.info --output-directory coverage_report --ignore-errors mismatch
-        COMMAND ${CMAKE_COMMAND} -E echo "Coverage report: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
-        DEPENDS runTests
-        COMMENT "Generating code coverage report..."
+    add_executable(runTests
+        test/testing.cpp
     )
+
+    target_link_libraries(runTests
+        PRIVATE
+            math_utils
+            gtest_main
+            Threads::Threads
+    )
+
+    enable_testing()
+    add_test(NAME MathUtilsTests COMMAND runTests)
+endif()
+
+# --------------------------------------------------------
+# Code coverage (GCC / Clang only, optional)
+# --------------------------------------------------------
+if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(math_utils PRIVATE -O0 -g --coverage)
+    target_link_options(math_utils PRIVATE --coverage)
+
+    if(ENABLE_TESTS)
+        target_compile_options(runTests PRIVATE -O0 -g --coverage)
+        target_link_options(runTests PRIVATE --coverage)
+    endif()
+
+    find_program(LCOV_PATH lcov)
+    find_program(GENHTML_PATH genhtml)
+
+    if(LCOV_PATH AND GENHTML_PATH AND ENABLE_TESTS)
+        add_custom_target(coverage
+            COMMAND ${LCOV_PATH} --directory . --zerocounters
+            COMMAND $<TARGET_FILE:runTests>
+            COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch
+            COMMAND ${LCOV_PATH} --remove coverage.info
+                    '/usr/*' '*/test/*' '*/_deps/*'
+                    --output-file coverage.info
+            COMMAND ${GENHTML_PATH} coverage.info
+                    --output-directory coverage_report
+                    --ignore-errors mismatch
+            COMMAND ${CMAKE_COMMAND} -E echo
+                    "Coverage report generated at: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
+            DEPENDS runTests
+            COMMENT "Generating code coverage report"
+        )
+    endif()
 endif()
