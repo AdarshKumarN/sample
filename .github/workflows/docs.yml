@@ -29,8 +29,11 @@ jobs:
         run: doxygen Doxyfile
 
       # 3. Build the project and run the coverage target defined in CMake
-      - name: Configure CMake
-        run: cmake -B build -S .
+      - name: Configure
+        run: cmake -S . -B build -DENABLE_TESTS=ON -DENABLE_COVERAGE=ON
+        
+      - name: Build
+        run: cmake --build build
 
       - name: Generate Coverage Report
         run: cmake --build build --target coverage
