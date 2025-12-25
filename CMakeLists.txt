@@ -52,30 +52,22 @@ endif()
 # Code coverage (GCC / Clang only, optional)
 # --------------------------------------------------------
 if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    target_compile_options(math_utils PRIVATE -O0 -g --coverage)
-    target_link_options(math_utils PRIVATE --coverage)
-
-    if(ENABLE_TESTS)
-        target_compile_options(runTests PRIVATE -O0 -g --coverage)
-        target_link_options(runTests PRIVATE --coverage)
-    endif()
-
     find_program(LCOV_PATH lcov)
     find_program(GENHTML_PATH genhtml)
 
-    if(LCOV_PATH AND GENHTML_PATH AND ENABLE_TESTS)
+    if(NOT LCOV_PATH OR NOT GENHTML_PATH)
+        message(WARNING "Coverage tools not found; coverage target will do nothing")
+        add_custom_target(coverage
+            COMMAND ${CMAKE_COMMAND} -E echo "Coverage skipped (tools missing)"
+        )
+    else()
         add_custom_target(coverage
             COMMAND ${LCOV_PATH} --directory . --zerocounters
             COMMAND $<TARGET_FILE:runTests>
             COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch
-            COMMAND ${LCOV_PATH} --remove coverage.info
-                    '/usr/*' '*/test/*' '*/_deps/*'
-                    --output-file coverage.info
-            COMMAND ${GENHTML_PATH} coverage.info
-                    --output-directory coverage_report
-                    --ignore-errors mismatch
-            COMMAND ${CMAKE_COMMAND} -E echo
-                    "Coverage report generated at: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
+            COMMAND ${LCOV_PATH} --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
+            COMMAND ${GENHTML_PATH} coverage.info --output-directory coverage_report --ignore-errors mismatch
+            COMMAND ${CMAKE_COMMAND} -E echo "Coverage report generated at: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
             DEPENDS runTests
             COMMENT "Generating code coverage report"
         )
