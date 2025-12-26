@@ -33,11 +33,11 @@ target_include_directories(math_utils
 if(ENABLE_TESTS)
     find_package(Threads REQUIRED)
 
-    add_executable(runTests
+    add_executable(MathUtilsTest
         test/testing.cpp
     )
 
-    target_link_libraries(runTests
+    target_link_libraries(MathUtilsTest
         PRIVATE
             math_utils
             gtest_main
@@ -45,7 +45,7 @@ if(ENABLE_TESTS)
     )
 
     enable_testing()
-    add_test(NAME MathUtilsTests COMMAND runTests)
+    add_test(NAME MathUtilsTest COMMAND MathUtilsTest)
 endif()
 
 # --------------------------------------------------------
@@ -55,9 +55,9 @@ if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     
     # Add coverage flags to all targets
     target_compile_options(math_utils PRIVATE -O0 -g --coverage)
-    if(TARGET runTests)
-        target_compile_options(runTests PRIVATE -O0 -g --coverage)
-        target_link_libraries(runTests PRIVATE --coverage)
+    if(TARGET MathUtilsTest)
+        target_compile_options(MathUtilsTest PRIVATE -O0 -g --coverage)
+        target_link_libraries(MathUtilsTest PRIVATE --coverage)
     endif()
 
     find_program(LCOV_PATH lcov)
@@ -71,12 +71,12 @@ if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     else()
         add_custom_target(coverage
             COMMAND ${LCOV_PATH} --directory . --zerocounters
-            COMMAND $<TARGET_FILE:runTests>           # run the tests to generate .gcda files
+            COMMAND $<TARGET_FILE:MathUtilsTest>           # run the tests to generate .gcda files
             COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch
             COMMAND ${LCOV_PATH} --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
             COMMAND ${GENHTML_PATH} coverage.info --output-directory coverage_report --ignore-errors mismatch
             COMMAND ${CMAKE_COMMAND} -E echo "Coverage report generated at: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
-            DEPENDS runTests
+            DEPENDS MathUtilsTest
             COMMENT "Generating code coverage report"
         )
     endif()
