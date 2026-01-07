@@ -19,7 +19,7 @@ pipeline {
                 set -e
                 cmake -S . -B ${BUILD_DIR} \
                       -DENABLE_TESTS=ON \
-                      -DENABLE_COVERAGE=OFF
+                      -DENABLE_COVERAGE=ON
                 '''
             }
         }
@@ -41,7 +41,16 @@ pipeline {
                 '''
             }
         }
+        stage('Coverage') {
+            steps {
+                sh '''
+                set -e
+                cmake --build build --target coverage
+                '''
+            }
+        }
     }
+}
 
     post {
         success {
