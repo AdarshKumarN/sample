@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/MathUtilsTest.dir/test/testing.cpp.o -o MathUtilsTest  libmath_utils.a lib/libgtest_main.a --coverage lib/libgtest.a 

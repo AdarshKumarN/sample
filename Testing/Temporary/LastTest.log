@@ -1,0 +1,44 @@
+Start testing: Jan 07 15:02 CET
+----------------------------------------------------------
+1/1 Testing: MathUtilsTest
+1/1 Test: MathUtilsTest
+Command: "/home/adarsh/sample/MathUtilsTest"
+Directory: /home/adarsh/sample
+"MathUtilsTest" start time: Jan 07 15:02 CET
+Output:
+----------------------------------------------------------
+[==========] Running 9 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 9 tests from MathUtilsTest
+[ RUN      ] MathUtilsTest.AddPositiveNumbers
+[       OK ] MathUtilsTest.AddPositiveNumbers (0 ms)
+[ RUN      ] MathUtilsTest.AddNegativeNumbers
+[       OK ] MathUtilsTest.AddNegativeNumbers (0 ms)
+[ RUN      ] MathUtilsTest.AddMixedNumbers
+[       OK ] MathUtilsTest.AddMixedNumbers (0 ms)
+[ RUN      ] MathUtilsTest.MultiplyPositiveNumbers
+[       OK ] MathUtilsTest.MultiplyPositiveNumbers (0 ms)
+[ RUN      ] MathUtilsTest.MultiplyWithZero
+[       OK ] MathUtilsTest.MultiplyWithZero (0 ms)
+[ RUN      ] MathUtilsTest.MultiplyNegativeNumbers
+[       OK ] MathUtilsTest.MultiplyNegativeNumbers (0 ms)
+[ RUN      ] MathUtilsTest.MultiplyMixedNumbers
+[       OK ] MathUtilsTest.MultiplyMixedNumbers (0 ms)
+[ RUN      ] MathUtilsTest.MultiplyMixedNumbersoo
+[       OK ] MathUtilsTest.MultiplyMixedNumbersoo (0 ms)
+[ RUN      ] MathUtilsTest.CombinedOperations
+[       OK ] MathUtilsTest.CombinedOperations (0 ms)
+[----------] 9 tests from MathUtilsTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 9 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 9 tests.
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"MathUtilsTest" end time: Jan 07 15:02 CET
+"MathUtilsTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jan 07 15:02 CET

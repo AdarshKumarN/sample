@@ -66,10 +66,10 @@ include CMakeFiles/coverage.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/coverage.dir/progress.make
 
-CMakeFiles/coverage: runTests
+CMakeFiles/coverage: MathUtilsTest
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/adarsh/sample/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating code coverage report"
 	/usr/bin/lcov --directory . --zerocounters
-	./runTests
+	./MathUtilsTest
 	/usr/bin/lcov --capture --directory . --output-file coverage.info --ignore-errors mismatch
 	/usr/bin/lcov --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
 	/usr/bin/genhtml coverage.info --output-directory coverage_report --ignore-errors mismatch

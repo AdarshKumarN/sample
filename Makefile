@@ -185,17 +185,17 @@ math_utils/fast:
 .PHONY : math_utils/fast
 
 #=============================================================================
-# Target rules for targets named runTests
+# Target rules for targets named MathUtilsTest
 
 # Build rule for target.
-runTests: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 runTests
-.PHONY : runTests
+MathUtilsTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MathUtilsTest
+.PHONY : MathUtilsTest
 
 # fast build rule for target.
-runTests/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/build
-.PHONY : runTests/fast
+MathUtilsTest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathUtilsTest.dir/build.make CMakeFiles/MathUtilsTest.dir/build
+.PHONY : MathUtilsTest/fast
 
 #=============================================================================
 # Target rules for targets named coverage
@@ -291,7 +291,7 @@ test/testing.o: test/testing.cpp.o
 
 # target to build an object file
 test/testing.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/test/testing.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathUtilsTest.dir/build.make CMakeFiles/MathUtilsTest.dir/test/testing.cpp.o
 .PHONY : test/testing.cpp.o
 
 test/testing.i: test/testing.cpp.i
@@ -299,7 +299,7 @@ test/testing.i: test/testing.cpp.i
 
 # target to preprocess a source file
 test/testing.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/test/testing.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathUtilsTest.dir/build.make CMakeFiles/MathUtilsTest.dir/test/testing.cpp.i
 .PHONY : test/testing.cpp.i
 
 test/testing.s: test/testing.cpp.s
@@ -307,7 +307,7 @@ test/testing.s: test/testing.cpp.s
 
 # target to generate assembly for a file
 test/testing.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/test/testing.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MathUtilsTest.dir/build.make CMakeFiles/MathUtilsTest.dir/test/testing.cpp.s
 .PHONY : test/testing.cpp.s
 
 # Help Target
@@ -324,12 +324,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... coverage"
+	@echo "... MathUtilsTest"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... math_utils"
-	@echo "... runTests"
 	@echo "... src/math_utils.o"
 	@echo "... src/math_utils.i"
 	@echo "... src/math_utils.s"
