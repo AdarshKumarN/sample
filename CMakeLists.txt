@@ -72,7 +72,7 @@ if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
         add_custom_target(coverage
             COMMAND ${LCOV_PATH} --directory . --zerocounters
             COMMAND $<TARGET_FILE:MathUtilsTest>           # run the tests to generate .gcda files
-            COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch
+            COMMAND ${LCOV_PATH} --capture --directory . --output-file coverage.info --ignore-errors mismatch,inconsistent
             COMMAND ${LCOV_PATH} --remove coverage.info '/usr/*' '*/test/*' '*/_deps/*' --output-file coverage.info
             COMMAND ${GENHTML_PATH} coverage.info --output-directory coverage_report --ignore-errors mismatch
             COMMAND ${CMAKE_COMMAND} -E echo "Coverage report generated at: ${CMAKE_BINARY_DIR}/coverage_report/index.html"
