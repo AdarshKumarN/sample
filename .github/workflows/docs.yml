@@ -3,7 +3,6 @@ name: Testing
 on:
   push:
     branches: [ "main", "feature/*", "bugfix/*" ]
-    branches-ignore: ["gh-pages"]
 
 permissions:
   contents: read
